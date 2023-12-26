@@ -26,13 +26,11 @@ export async function getFeaturedProducts() {
 }
 
 export async function getProductById(id) {
-  const response = await fetch(
-    `${apiUrl}/api/Product/GetProduct?Id=${id}`
-  );
+  const response = await fetch(`${apiUrl}/api/Product/GetProduct?Id=${id}`);
   const data = await response.json();
-  return data
+  return data;
   // return  axios.get(`${apiUrl}/api/Product/GetProduct?Id=${id}`)
- 
+
   // axios({
   //   method: "get",
   //   url: `${apiUrl}/api/Product/GetProduct?Id=${id}`,
@@ -56,18 +54,21 @@ export async function getProductById(id) {
   // const allProducts = await getAllProducts();
   // return allProducts.find((product) => product.id === id);
 }
+// /api/Product/GetByName?SearchText=%D8%B3%DB%8C%D8%A8&PageNumber=1&RowCount=10
+export async function getFilteredProducts(data) {
+  
+  // const { year, month } = dateFilter;
+  // const allProducts = await getAllProducts();
 
-export async function getFilteredProducts(dateFilter) {
-  const { year, month } = dateFilter;
-
-  const allProducts = await getAllProducts();
-
-  let filteredProducts = allProducts.filter((product) => {
-    const productDate = new Date(product.date);
-    return (
-      productDate.getFullYear() === year && productDate.getMonth() === month - 1
-    );
-  });
-
+  // let filteredProducts = allProducts.filter((product) => {
+  //   const productDate = new Date(product.date);
+  //   return (
+  //     productDate.getFullYear() === year && productDate.getMonth() === month - 1
+  //   );
+  // });
+  const response = await fetch(
+    `${apiUrl}/api/Product/GetByName?SearchText=${data}&PageNumber=1&RowCount=10`
+  );
+  const filteredProducts = await response.json();
   return filteredProducts;
 }
